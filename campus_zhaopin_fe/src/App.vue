@@ -9,7 +9,15 @@
       </el-table-column>
       <el-table-column prop="companyName" label="公司姓名" width="100">
       </el-table-column>
-      <el-table-column prop="companyType" label="公司类别" width="100">
+      <el-table-column prop="companyType" label="公司类别" width="100" 
+        :filters="[{ text: '互联网一线', value: '互联网一线' }, 
+                   { text: '互联网独角兽', value: '互联网独角兽' },
+                   { text: '互联网其他', value: '互联网其他' },
+                   { text: '银行', value: '银行' },
+                   { text: '国企', value: '国企' },
+                   { text: '央企', value: '央企' }]"
+        :filter-method="filterHandler"
+       >
       </el-table-column>
       <el-table-column prop="zhaopinType" label="招聘类别" width="100">
       </el-table-column>
@@ -156,8 +164,8 @@
   </el-dialog>
 
    <!-- -->
-  <el-dialog title="投递详情" :visible.sync="detailVisible" width="70%" :before-close="handleCloseDetail">
-    <el-form ref="detail" :model="detail" label-width="80px">
+  <el-dialog title="投递详情" :visible.sync="detailVisible" width="40%" :before-close="handleCloseDetail">
+    <el-form ref="detail" :model="detail" label-width="90px">
       <el-form-item label="投递人">
         <el-input v-model="detail.userName"></el-input>
       </el-form-item>
@@ -185,7 +193,7 @@
     </span>
   </el-dialog>
   <!-- -->
-  <el-dialog title="投递详情" :visible.sync="dialogTableVisible" width="70%">
+  <el-dialog title="投递详情" :visible.sync="dialogTableVisible" width="80%">
     <el-table :data="tableDetail">
       <el-table-column property="companyId" label="投递公司编号" ></el-table-column>
       <el-table-column property="companyName" label="投递公司" ></el-table-column>
@@ -609,7 +617,11 @@ export default {
           console.log(error)
           this.$message.error('异常');
         })
-    }
+    },
+    filterHandler(value, row, column){
+        const property = column['property'];
+        return row[property] === value;
+    },
   }, 
 }
 </script>
