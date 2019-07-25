@@ -1,0 +1,9 @@
+server:
+  port: 2020
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: gsuser #root
+    password: gsuser #123456
+    url: jdbc:mysql://202.112.147.7:3307/campus_zhaopin?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT

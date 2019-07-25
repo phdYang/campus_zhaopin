@@ -1,0 +1,48 @@
+# 业务功能
+
+1 查看所有招聘信息 [x]
+2 增加招聘信息 [x]
+3 修改 公司名称 [x]
+
+4 投递功能：点击投递，表明自己投递本公司，填写自己的名字和具体投递时间和岗位
+5 查看详情：看到所有人投递信息
+
+# 数据库名字
+campus_zhaopin
+
+# table_name
+
+1 campus_zhaopin_data_2020
+	company_id company  start_time      end_time         exm_time     detail    upload_user  upload_ip  upload_time 投递
+	company_id 公司	    简历投递开始时间	简历投递结束时间 	 笔试开始时间  投递情况  上传人        上传人ip	上传时间 
+	1  字节跳动  2019-07-19      2019-10-31       2019-07-20   查看 
+
+2 detail_zhaopin_data_2020
+	detail_id user_name company_id job_name create_time
+
+
+# sql
+
+CREATE TABLE `campus_zhaopin_data_2020` (
+	`company_id` VARCHAR(32) NOT NULL,
+	`company` VARCHAR(255) NOT NULL COMMENT '公司',
+	`start_time` TIMESTAMP NOT NULL COMMENT '简历投递开始时间',
+	`end_time` TIMESTAMP NOT NULL COMMENT '简历投递结束时间',
+	`exm_time` TIMESTAMP NOT NULL COMMENT '笔试开始时间',
+	`upload_user` VARCHAR(64) COMMENT '上传人',
+	`upload_ip` VARCHAR(64) COMMENT '上传人ip',
+	`upload_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
+	`update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+	PRIMARY KEY (`company_id`)
+) COMMENT '公司表';
+
+CREATE TABLE `detail_zhaopin_data_2020` (
+	`detail_id` VARCHAR(32) NOT NULL,
+	`user_name` VARCHAR(255) NOT NULL COMMENT '投递人',
+	`company_id` VARCHAR(32) NOT NULL COMMENT '投递的公司id',
+	`job_name` VARCHAR(255) NOT NULL COMMENT '投递的岗位',
+	`department_name` VARCHAR(255) NOT NULL COMMENT '投递的部门',
+	`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+	PRIMARY KEY (`detail_id`)
+) COMMENT '投递详情表';
